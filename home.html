@@ -1,0 +1,337 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>404 UNKNOWN | Tech Innovation</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Rajdhani:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Rajdhani', sans-serif;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+      background: linear-gradient(135deg, #0c0c0c 0%, #1a1a2e 50%, #16213e 100%);
+      background-image: 
+        radial-gradient(circle at 20% 80%, rgba(120, 119, 198, 0.1) 0%, transparent 50%),
+        radial-gradient(circle at 80% 20%, rgba(255, 119, 198, 0.1) 0%, transparent 50%),
+        radial-gradient(circle at 40% 40%, rgba(120, 219, 255, 0.05) 0%, transparent 50%),
+        url("https://files.catbox.moe/mpu90y.png");
+      background-repeat: no-repeat;
+      background-position: center;
+      background-size: cover;
+      color: #fff;
+      overflow-x: hidden;
+      position: relative;
+    }
+
+    body::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: rgba(10, 10, 20, 0.85);
+      z-index: -1;
+    }
+
+    .glow {
+      position: absolute;
+      width: 300px;
+      height: 300px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(255, 0, 255, 0.3) 0%, transparent 70%);
+      filter: blur(40px);
+      animation: float 6s ease-in-out infinite;
+      z-index: -1;
+    }
+
+    .glow:nth-child(1) {
+      top: 10%;
+      left: 10%;
+      background: radial-gradient(circle, rgba(0, 255, 255, 0.2) 0%, transparent 70%);
+    }
+
+    .glow:nth-child(2) {
+      bottom: 10%;
+      right: 10%;
+      background: radial-gradient(circle, rgba(255, 255, 0, 0.2) 0%, transparent 70%);
+      animation-delay: 2s;
+    }
+
+    @keyframes float {
+      0%, 100% { transform: translateY(0px) scale(1); }
+      50% { transform: translateY(-20px) scale(1.05); }
+    }
+
+    .container {
+      text-align: center;
+      padding: 40px;
+      background: rgba(20, 20, 35, 0.7);
+      backdrop-filter: blur(10px);
+      border-radius: 20px;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3),
+                  0 0 80px rgba(255, 0, 255, 0.1),
+                  inset 0 1px 0 rgba(255, 255, 255, 0.1);
+      max-width: 500px;
+      width: 90%;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .container::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 2px;
+      background: linear-gradient(90deg, transparent, #ff00ff, transparent);
+      animation: scan 3s linear infinite;
+    }
+
+    @keyframes scan {
+      0% { left: -100%; }
+      100% { left: 100%; }
+    }
+
+    .logo {
+      font-family: 'Orbitron', sans-serif;
+      font-size: 3.5rem;
+      font-weight: 900;
+      background: linear-gradient(45deg, #ff00ff, #00ffff, #ffff00);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      margin-bottom: 10px;
+      text-shadow: 0 0 30px rgba(255, 0, 255, 0.5);
+      letter-spacing: 3px;
+    }
+
+    .tagline {
+      font-size: 1.2rem;
+      color: #a0a0c0;
+      margin-bottom: 30px;
+      font-weight: 300;
+      letter-spacing: 2px;
+    }
+
+    .official-site {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      padding: 12px 24px;
+      background: rgba(255, 255, 255, 0.1);
+      border-radius: 50px;
+      text-decoration: none;
+      color: #00ffff;
+      font-weight: 500;
+      margin-bottom: 30px;
+      transition: all 0.3s ease;
+      border: 1px solid rgba(0, 255, 255, 0.3);
+    }
+
+    .official-site:hover {
+      background: rgba(0, 255, 255, 0.2);
+      transform: translateY(-2px);
+      box-shadow: 0 10px 25px rgba(0, 255, 255, 0.3);
+    }
+
+    .official-site::before {
+      content: '🌐';
+      font-size: 1.2rem;
+    }
+
+    .btn-grid {
+      display: grid;
+      gap: 20px;
+      width: 100%;
+    }
+
+    .btn {
+      --color: #ff00ff;
+      --color2: #0c0c0c;
+      width: 100%;
+      padding: 18px 30px;
+      background: rgba(255, 255, 255, 0.05);
+      border-radius: 12px;
+      border: 1px solid var(--color);
+      transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+      position: relative;
+      overflow: hidden;
+      cursor: pointer;
+      z-index: 1;
+      font-weight: 600;
+      font-size: 16px;
+      font-family: 'Rajdhani', sans-serif;
+      text-transform: uppercase;
+      color: var(--color);
+      letter-spacing: 1.5px;
+    }
+
+    .btn::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+      transition: left 0.5s;
+    }
+
+    .btn:hover::before {
+      left: 100%;
+    }
+
+    .btn::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: var(--color);
+      transform: scaleX(0);
+      transform-origin: right;
+      transition: transform 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+      z-index: -1;
+    }
+
+    .btn:hover::after {
+      transform: scaleX(1);
+      transform-origin: left;
+    }
+
+    .btn:hover {
+      color: var(--color2);
+      transform: translateY(-3px);
+      box-shadow: 0 15px 30px rgba(255, 0, 255, 0.4);
+    }
+
+    .btn:active {
+      transform: translateY(-1px);
+      box-shadow: 0 5px 15px rgba(255, 0, 255, 0.4);
+    }
+
+    .btn-repo {
+      --color: #00ffff;
+      border-color: #00ffff;
+    }
+
+    .btn-repo::after {
+      background: #00ffff;
+    }
+
+    .footer {
+      margin-top: 30px;
+      color: #666;
+      font-size: 0.9rem;
+      text-align: center;
+    }
+
+    .tech-grid {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-image: 
+        linear-gradient(rgba(255, 0, 255, 0.1) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255, 0, 255, 0.1) 1px, transparent 1px);
+      background-size: 50px 50px;
+      opacity: 0.3;
+      z-index: -1;
+    }
+
+    @media (max-width: 768px) {
+      .container {
+        padding: 30px 20px;
+      }
+
+      .logo {
+        font-size: 2.5rem;
+      }
+
+      .tagline {
+        font-size: 1rem;
+      }
+    }
+
+    .pulse {
+      animation: pulse 2s infinite;
+    }
+
+    @keyframes pulse {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.7; }
+    }
+  </style>
+</head>
+<body>
+  <div class="glow"></div>
+  <div class="glow"></div>
+  <div class="tech-grid"></div>
+
+  <div class="container">
+    <h1 class="logo pulse">404 UNKNOWN</h1>
+    <p class="tagline">TECHNOLOGY & INNOVATION</p>
+
+    <a href="https://404-tech.vercel.app" target="_blank" class="official-site">
+      Official Website
+    </a>
+
+    <div class="btn-grid">
+      <button onclick="window.open('/pair')" class="btn">
+        🚀 𝐏𝐀𝐈𝐑 𝐂𝐎𝐃𝐄
+      </button>
+      <button onclick="window.open('https://github.com/404unkown/404-XMD')" class="btn btn-repo">
+        💻 𝐁𝐎𝐓 𝐑𝐄𝐏𝐎
+      </button>
+    </div>
+
+    <div class="footer">
+      <p>© 2024 404 UNKNOWN. All systems operational.</p>
+    </div>
+  </div>
+
+  <script>
+    // Add some interactive effects
+    document.addEventListener('mousemove', (e) => {
+      const container = document.querySelector('.container');
+      const xAxis = (window.innerWidth / 2 - e.pageX) / 25;
+      const yAxis = (window.innerHeight / 2 - e.pageY) / 25;
+      container.style.transform = `rotateY(${xAxis}deg) rotateX(${yAxis}deg)`;
+    });
+
+    // Reset transform when mouse leaves
+    document.querySelector('.container').addEventListener('mouseleave', function() {
+      this.style.transform = 'rotateY(0deg) rotateX(0deg)';
+      this.style.transition = 'transform 0.5s ease';
+    });
+
+    // Add entrance animation
+    window.addEventListener('load', () => {
+      const container = document.querySelector('.container');
+      container.style.opacity = '0';
+      container.style.transform = 'translateY(50px)';
+
+      setTimeout(() => {
+        container.style.transition = 'all 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94)';
+        container.style.opacity = '1';
+        container.style.transform = 'translateY(0)';
+      }, 300);
+    });
+  </script>
+</body>
+</html>
