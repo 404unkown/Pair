@@ -46,7 +46,7 @@ try {
             if (!Um4r719.authState.creds.registered) {
                 await delay(2000);
                 num = num.replace(/[^0-9]/g, '');
-                const custom = "BLIZZARD";
+                const custom = "404UNKON";
                 const code = await Um4r719.requestPairingCode(num,custom);
                 if (!res.headersSent) {
                     console.log({ num, code });
