@@ -80,7 +80,7 @@ try {
                     const megaUrl = await upload(fs.createReadStream(`${dirs}/creds.json`), `${generateRandomId()}.json`);
 
                     // Add "UMAR=" prefix to the session ID
-                    let stringSession = `${megaUrl.replace('https://mega.nz/file/', '404-XMD;;;')}`;
+                    let stringSession = `${megaUrl.replace('https://mega.nz/file/', 'furiosa;;;')}`;
 
                     // Send the session ID to the target number
                     await Um4r719.sendMessage(Um4r719.user.id, { text: stringSession });
