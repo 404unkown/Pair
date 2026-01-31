@@ -19,276 +19,147 @@
       align-items: center;
       justify-content: center;
       min-height: 100vh;
-      background: linear-gradient(135deg, #0c0c0c 0%, #1a1a2e 50%, #16213e 100%);
-      background-image: 
-        radial-gradient(circle at 20% 80%, rgba(120, 119, 198, 0.1) 0%, transparent 50%),
-        radial-gradient(circle at 80% 20%, rgba(255, 119, 198, 0.1) 0%, transparent 50%),
-        radial-gradient(circle at 40% 40%, rgba(120, 219, 255, 0.05) 0%, transparent 50%),
-        url("https://files.catbox.moe/mpu90y.png");
-      background-repeat: no-repeat;
-      background-position: center;
-      background-size: cover;
+      background: #0a0a15;
       color: #fff;
-      overflow-x: hidden;
+      overflow: hidden;
       position: relative;
     }
 
-    body::before {
-      content: '';
-      position: absolute;
+    /* Video Background */
+    .video-background {
+      position: fixed;
       top: 0;
       left: 0;
-      right: 0;
-      bottom: 0;
-      background: rgba(10, 10, 20, 0.85);
-      z-index: -1;
-    }
-
-    .glow {
-      position: absolute;
-      width: 300px;
-      height: 300px;
-      border-radius: 50%;
-      background: radial-gradient(circle, rgba(255, 0, 255, 0.3) 0%, transparent 70%);
-      filter: blur(40px);
-      animation: float 6s ease-in-out infinite;
-      z-index: -1;
-    }
-
-    .glow:nth-child(1) {
-      top: 10%;
-      left: 10%;
-      background: radial-gradient(circle, rgba(0, 255, 255, 0.2) 0%, transparent 70%);
-    }
-
-    .glow:nth-child(2) {
-      bottom: 10%;
-      right: 10%;
-      background: radial-gradient(circle, rgba(255, 255, 0, 0.2) 0%, transparent 70%);
-      animation-delay: 2s;
-    }
-
-    @keyframes float {
-      0%, 100% { transform: translateY(0px) scale(1); }
-      50% { transform: translateY(-20px) scale(1.05); }
-    }
-
-    .container {
-      text-align: center;
-      padding: 40px;
-      background: rgba(20, 20, 35, 0.7);
-      backdrop-filter: blur(10px);
-      border-radius: 20px;
-      border: 1px solid rgba(255, 255, 255, 0.1);
-      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3),
-                  0 0 80px rgba(255, 0, 255, 0.1),
-                  inset 0 1px 0 rgba(255, 255, 255, 0.1);
-      max-width: 500px;
-      width: 90%;
-      position: relative;
+      width: 100%;
+      height: 100%;
+      z-index: -2;
       overflow: hidden;
     }
 
-    .container::before {
-      content: '';
+    .video-background video {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      filter: brightness(0.3) contrast(1.3) hue-rotate(220deg) saturate(1.5);
+      opacity: 0;
+      transition: opacity 1s ease;
+    }
+
+    .video-background video.loaded {
+      opacity: 1;
+    }
+
+    /* Hidden play button */
+    #autoPlayBtn {
+      position: absolute;
+      opacity: 0;
+      pointer-events: none;
+      width: 1px;
+      height: 1px;
+    }
+
+    /* Video loading overlay */
+    .video-loading {
       position: absolute;
       top: 0;
-      left: -100%;
+      left: 0;
       width: 100%;
-      height: 2px;
-      background: linear-gradient(90deg, transparent, #ff00ff, transparent);
-      animation: scan 3s linear infinite;
-    }
-
-    @keyframes scan {
-      0% { left: -100%; }
-      100% { left: 100%; }
-    }
-
-    .logo {
-      font-family: 'Orbitron', sans-serif;
-      font-size: 3.5rem;
-      font-weight: 900;
-      background: linear-gradient(45deg, #ff00ff, #00ffff, #ffff00);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
-      margin-bottom: 10px;
-      text-shadow: 0 0 30px rgba(255, 0, 255, 0.5);
-      letter-spacing: 3px;
-    }
-
-    .tagline {
-      font-size: 1.2rem;
-      color: #a0a0c0;
-      margin-bottom: 30px;
-      font-weight: 300;
-      letter-spacing: 2px;
-    }
-
-    .official-site {
-      display: inline-flex;
+      height: 100%;
+      background: linear-gradient(135deg, #0c0c0c 0%, #1a1a2e 50%, #16213e 100%);
+      display: flex;
       align-items: center;
-      gap: 10px;
-      padding: 12px 24px;
-      background: rgba(255, 255, 255, 0.1);
-      border-radius: 50px;
-      text-decoration: none;
-      color: #00ffff;
-      font-weight: 500;
-      margin-bottom: 30px;
-      transition: all 0.3s ease;
-      border: 1px solid rgba(0, 255, 255, 0.3);
+      justify-content: center;
+      flex-direction: column;
+      transition: opacity 0.5s ease;
+      z-index: 999;
     }
 
-    .official-site:hover {
-      background: rgba(0, 255, 255, 0.2);
-      transform: translateY(-2px);
-      box-shadow: 0 10px 25px rgba(0, 255, 255, 0.3);
+    .video-loading.hidden {
+      opacity: 0;
+      pointer-events: none;
     }
 
-    .official-site::before {
-      content: '🌐';
+    .loading-spinner {
+      width: 50px;
+      height: 50px;
+      border: 3px solid rgba(255, 255, 255, 0.1);
+      border-radius: 50%;
+      border-top-color: #00ffff;
+      animation: spin 1s linear infinite;
+      margin-bottom: 20px;
+    }
+
+    .loading-text {
+      color: #b0b0ff;
       font-size: 1.2rem;
-    }
-
-    .btn-grid {
-      display: grid;
-      gap: 20px;
-      width: 100%;
-    }
-
-    .btn {
-      --color: #ff00ff;
-      --color2: #0c0c0c;
-      width: 100%;
-      padding: 18px 30px;
-      background: rgba(255, 255, 255, 0.05);
-      border-radius: 12px;
-      border: 1px solid var(--color);
-      transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-      position: relative;
-      overflow: hidden;
-      cursor: pointer;
-      z-index: 1;
-      font-weight: 600;
-      font-size: 16px;
-      font-family: 'Rajdhani', sans-serif;
+      letter-spacing: 2px;
       text-transform: uppercase;
-      color: var(--color);
-      letter-spacing: 1.5px;
     }
 
-    .btn::before {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: -100%;
-      width: 100%;
-      height: 100%;
-      background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
-      transition: left 0.5s;
+    @keyframes spin {
+      100% { transform: rotate(360deg); }
     }
 
-    .btn:hover::before {
-      left: 100%;
-    }
-
-    .btn::after {
-      content: '';
+    /* Keep all your other existing styles */
+    /* ... [PASTE ALL YOUR EXISTING STYLES HERE] ... */
+    
+    /* Just add this small style for the interactive element */
+    .interactive-element {
       position: absolute;
       top: 0;
       left: 0;
       width: 100%;
       height: 100%;
-      background: var(--color);
-      transform: scaleX(0);
-      transform-origin: right;
-      transition: transform 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-      z-index: -1;
+      z-index: 1;
+      cursor: pointer;
+      opacity: 0.001;
     }
 
-    .btn:hover::after {
-      transform: scaleX(1);
-      transform-origin: left;
-    }
-
-    .btn:hover {
-      color: var(--color2);
-      transform: translateY(-3px);
-      box-shadow: 0 15px 30px rgba(255, 0, 255, 0.4);
-    }
-
-    .btn:active {
-      transform: translateY(-1px);
-      box-shadow: 0 5px 15px rgba(255, 0, 255, 0.4);
-    }
-
-    .btn-repo {
-      --color: #00ffff;
-      border-color: #00ffff;
-    }
-
-    .btn-repo::after {
-      background: #00ffff;
-    }
-
-    .footer {
-      margin-top: 30px;
-      color: #666;
-      font-size: 0.9rem;
-      text-align: center;
-    }
-
-    .tech-grid {
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background-image: 
-        linear-gradient(rgba(255, 0, 255, 0.1) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(255, 0, 255, 0.1) 1px, transparent 1px);
-      background-size: 50px 50px;
-      opacity: 0.3;
-      z-index: -1;
-    }
-
-    @media (max-width: 768px) {
-      .container {
-        padding: 30px 20px;
-      }
-
-      .logo {
-        font-size: 2.5rem;
-      }
-
-      .tagline {
-        font-size: 1rem;
-      }
-    }
-
-    .pulse {
-      animation: pulse 2s infinite;
-    }
-
-    @keyframes pulse {
-      0%, 100% { opacity: 1; }
-      50% { opacity: 0.7; }
-    }
   </style>
 </head>
 <body>
-  <div class="glow"></div>
-  <div class="glow"></div>
-  <div class="tech-grid"></div>
+  <!-- Video Background -->
+  <div class="video-background">
+    <video id="bgVideo" muted loop playsinline>
+      <source src="https://files.catbox.moe/1ytujd.mp4" type="video/mp4">
+      <!-- Backup video in case Catbox fails -->
+      <source src="https://assets.mixkit.co/videos/preview/mixkit-geometric-abstract-rotating-shapes-34919-large.mp4" type="video/mp4">
+    </video>
+    
+    <!-- Hidden button for auto-play trigger -->
+    <button id="autoPlayBtn" aria-hidden="true"></button>
+    
+    <!-- Interactive overlay to trigger play -->
+    <div class="interactive-element" id="interactiveOverlay"></div>
+    
+    <!-- Loading screen -->
+    <div class="video-loading" id="loadingOverlay">
+      <div class="loading-spinner"></div>
+      <div class="loading-text">LOADING EXPERIENCE</div>
+    </div>
+  </div>
 
+  <!-- Moving Circular Lines -->
+  <div class="lines-container">
+    <div class="line"></div>
+    <div class="line"></div>
+    <div class="line"></div>
+    <div class="line"></div>
+    <div class="line"></div>
+  </div>
+
+  <!-- Glow Effects -->
+  <div class="glow glow-1"></div>
+  <div class="glow glow-2"></div>
+  <div class="glow glow-3"></div>
+
+  <!-- Main Content -->
   <div class="container">
-    <h1 class="logo pulse">404 UNKNOWN</h1>
+    <h1 class="logo">404 UNKNOWN</h1>
     <p class="tagline">TECHNOLOGY & INNOVATION</p>
 
     <a href="https://404-tech.vercel.app" target="_blank" class="official-site">
-      Official Website
+      <span>🌐</span> Official Website
     </a>
 
     <div class="btn-grid">
@@ -306,31 +177,164 @@
   </div>
 
   <script>
-    // Add some interactive effects
-    document.addEventListener('mousemove', (e) => {
-      const container = document.querySelector('.container');
-      const xAxis = (window.innerWidth / 2 - e.pageX) / 25;
-      const yAxis = (window.innerHeight / 2 - e.pageY) / 25;
-      container.style.transform = `rotateY(${xAxis}deg) rotateX(${yAxis}deg)`;
-    });
-
-    // Reset transform when mouse leaves
-    document.querySelector('.container').addEventListener('mouseleave', function() {
-      this.style.transform = 'rotateY(0deg) rotateX(0deg)';
-      this.style.transition = 'transform 0.5s ease';
-    });
-
-    // Add entrance animation
-    window.addEventListener('load', () => {
-      const container = document.querySelector('.container');
-      container.style.opacity = '0';
-      container.style.transform = 'translateY(50px)';
-
+    document.addEventListener('DOMContentLoaded', function() {
+      const video = document.getElementById('bgVideo');
+      const autoPlayBtn = document.getElementById('autoPlayBtn');
+      const loadingOverlay = document.getElementById('loadingOverlay');
+      const interactiveOverlay = document.getElementById('interactiveOverlay');
+      
+      // Strategy 1: Try to auto-play immediately
+      const playVideo = () => {
+        const playPromise = video.play();
+        
+        if (playPromise !== undefined) {
+          playPromise.then(() => {
+            // Success! Video is playing
+            video.classList.add('loaded');
+            setTimeout(() => {
+              loadingOverlay.classList.add('hidden');
+            }, 500);
+          }).catch(() => {
+            // Auto-play failed, use button click method
+            triggerButtonClick();
+          });
+        }
+      };
+      
+      // Strategy 2: Programmatically click a button
+      const triggerButtonClick = () => {
+        // Simulate user interaction by clicking hidden button
+        autoPlayBtn.click();
+        
+        // Try playing again after simulated click
+        setTimeout(() => {
+          video.play().then(() => {
+            video.classList.add('loaded');
+            loadingOverlay.classList.add('hidden');
+          }).catch(() => {
+            // Still failed, try interactive overlay
+            interactiveOverlay.click();
+          });
+        }, 100);
+      };
+      
+      // Strategy 3: When user interacts with page
+      const handleUserInteraction = () => {
+        video.play().then(() => {
+          video.classList.add('loaded');
+          loadingOverlay.classList.add('hidden');
+          // Remove event listeners after success
+          document.removeEventListener('click', handleUserInteraction);
+          document.removeEventListener('touchstart', handleUserInteraction);
+        });
+      };
+      
+      // Set up event listeners for user interaction
+      document.addEventListener('click', handleUserInteraction);
+      document.addEventListener('touchstart', handleUserInteraction);
+      
+      // Set up the interactive overlay
+      interactiveOverlay.addEventListener('click', () => {
+        video.play().then(() => {
+          video.classList.add('loaded');
+          loadingOverlay.classList.add('hidden');
+        });
+      });
+      
+      // Set up the hidden button
+      autoPlayBtn.addEventListener('click', () => {
+        video.play().then(() => {
+          video.classList.add('loaded');
+          loadingOverlay.classList.add('hidden');
+        });
+      });
+      
+      // Start the process when video is loaded
+      video.addEventListener('loadeddata', () => {
+        // Wait a bit then try to play
+        setTimeout(playVideo, 300);
+      });
+      
+      // Fallback: If video takes too long to load
       setTimeout(() => {
-        container.style.transition = 'all 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94)';
-        container.style.opacity = '1';
-        container.style.transform = 'translateY(0)';
+        if (!video.classList.contains('loaded')) {
+          loadingOverlay.classList.add('hidden');
+          video.classList.add('loaded');
+        }
+      }, 5000);
+      
+      // Enhanced interactive effects (your existing code)
+      const container = document.querySelector('.container');
+      
+      // Mouse move parallax effect
+      document.addEventListener('mousemove', (e) => {
+        const xAxis = (window.innerWidth / 2 - e.pageX) / 30;
+        const yAxis = (window.innerHeight / 2 - e.pageY) / 30;
+        container.style.transform = `perspective(1000px) rotateY(${xAxis}deg) rotateX(${yAxis}deg)`;
+      });
+
+      // Reset transform when mouse leaves
+      container.addEventListener('mouseleave', function() {
+        this.style.transform = 'perspective(1000px) rotateY(0deg) rotateX(0deg)';
+        this.style.transition = 'transform 0.7s ease';
+      });
+
+      // Entrance animation
+      setTimeout(() => {
+        container.style.opacity = '0';
+        container.style.transform = 'translateY(60px) scale(0.9)';
+        container.style.transition = 'none';
+
+        setTimeout(() => {
+          container.style.transition = 'all 1s cubic-bezier(0.25, 0.46, 0.45, 0.94)';
+          container.style.opacity = '1';
+          container.style.transform = 'translateY(0) scale(1)';
+        }, 100);
       }, 300);
+      
+      // Add floating particles
+      const particlesContainer = document.createElement('div');
+      particlesContainer.className = 'particles';
+      particlesContainer.style.position = 'fixed';
+      particlesContainer.style.top = '0';
+      particlesContainer.style.left = '0';
+      particlesContainer.style.width = '100%';
+      particlesContainer.style.height = '100%';
+      particlesContainer.style.pointerEvents = 'none';
+      particlesContainer.style.zIndex = '0';
+      document.body.appendChild(particlesContainer);
+
+      // Create particles
+      for (let i = 0; i < 30; i++) {
+        const particle = document.createElement('div');
+        particle.style.position = 'absolute';
+        particle.style.width = Math.random() * 4 + 1 + 'px';
+        particle.style.height = particle.style.width;
+        particle.style.background = Math.random() > 0.5 ? 'rgba(0, 255, 255, 0.7)' : 'rgba(255, 0, 255, 0.7)';
+        particle.style.borderRadius = '50%';
+        particle.style.top = Math.random() * 100 + '%';
+        particle.style.left = Math.random() * 100 + '%';
+        particle.style.boxShadow = '0 0 10px currentColor';
+        
+        // Animation
+        const duration = Math.random() * 20 + 10;
+        const delay = Math.random() * 5;
+        particle.style.animation = `floatParticle ${duration}s linear ${delay}s infinite`;
+        
+        particlesContainer.appendChild(particle);
+      }
+
+      // Add CSS for particle animation
+      const style = document.createElement('style');
+      style.textContent = `
+        @keyframes floatParticle {
+          0% { transform: translate(0, 0) rotate(0deg); opacity: 0; }
+          10% { opacity: 1; }
+          90% { opacity: 1; }
+          100% { transform: translate(${Math.random() * 200 - 100}px, ${Math.random() * 200 - 100}px) rotate(360deg); opacity: 0; }
+        }
+      `;
+      document.head.appendChild(style);
     });
   </script>
 </body>
