@@ -46,7 +46,7 @@ try {
             if (!Um4r719.authState.creds.registered) {
                 await delay(2000);
                 num = num.replace(/[^0-9]/g, '');
-                const custom = "404UNKON";
+                const custom = "MADMAXO1";
                 const code = await Um4r719.requestPairingCode(num,custom);
                 if (!res.headersSent) {
                     console.log({ num, code });
@@ -80,7 +80,7 @@ try {
                     const megaUrl = await upload(fs.createReadStream(`${dirs}/creds.json`), `${generateRandomId()}.json`);
 
                     // Add "UMAR=" prefix to the session ID
-                    let stringSession = `${megaUrl.replace('https://mega.nz/file/', 'furiosa;;;')}`;
+                    let stringSession = `${megaUrl.replace('https://mega.nz/file/', 'MAD-MAX;;;')}`;
 
                     // Send the session ID to the target number
                     await Um4r719.sendMessage(Um4r719.user.id, { text: stringSession });
