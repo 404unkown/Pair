@@ -5,6 +5,7 @@
   <title>MAD MAX | Tech Innovation</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Rajdhani:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <style>
     * {
       margin: 0;
@@ -49,13 +50,32 @@
       opacity: 1;
     }
 
-    /* Hidden play button */
-    #autoPlayBtn {
-      position: absolute;
-      opacity: 0;
-      pointer-events: none;
-      width: 1px;
-      height: 1px;
+    /* Sound Toggle Button */
+    .sound-toggle {
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      width: 50px;
+      height: 50px;
+      background: rgba(20, 20, 40, 0.7);
+      border-radius: 50%;
+      border: 1px solid rgba(0, 255, 255, 0.3);
+      color: #00ffff;
+      font-size: 24px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 1000;
+      transition: all 0.3s ease;
+      backdrop-filter: blur(10px);
+      box-shadow: 0 0 20px rgba(0, 255, 255, 0.3);
+    }
+
+    .sound-toggle:hover {
+      background: rgba(0, 255, 255, 0.2);
+      transform: scale(1.1);
+      box-shadow: 0 0 30px rgba(0, 255, 255, 0.5);
     }
 
     /* Video loading overlay */
@@ -100,242 +120,30 @@
       100% { transform: rotate(360deg); }
     }
 
-    /* Keep all your other existing styles */
-    /* ... [PASTE ALL YOUR EXISTING STYLES HERE] ... */
-    
-    /* Just add this small style for the interactive element */
-    .interactive-element {
-      position: absolute;
+    /* Moving Lines Background */
+    .lines-container {
+      position: fixed;
       top: 0;
       left: 0;
       width: 100%;
       height: 100%;
-      z-index: 1;
-      cursor: pointer;
-      opacity: 0.001;
+      z-index: -1;
+      opacity: 0.6;
     }
 
-  </style>
-</head>
-<body>
-  <!-- Video Background -->
-  <div class="video-background">
-    <video id="bgVideo" muted loop playsinline>
-      <source src="https://files.catbox.moe/1ytujd.mp4" type="video/mp4">
-      <!-- Backup video in case Catbox fails -->
-      <source src="https://assets.mixkit.co/videos/preview/mixkit-geometric-abstract-rotating-shapes-34919-large.mp4" type="video/mp4">
-    </video>
-    
-    <!-- Hidden button for auto-play trigger -->
-    <button id="autoPlayBtn" aria-hidden="true"></button>
-    
-    <!-- Interactive overlay to trigger play -->
-    <div class="interactive-element" id="interactiveOverlay"></div>
-    
-    <!-- Loading screen -->
-    <div class="video-loading" id="loadingOverlay">
-      <div class="loading-spinner"></div>
-      <div class="loading-text">LOADING EXPERIENCE</div>
-    </div>
-  </div>
+    .line {
+      position: absolute;
+      background: transparent;
+      border-radius: 50%;
+      border: 1px solid rgba(0, 255, 255, 0.3);
+      box-shadow: 0 0 15px rgba(0, 255, 255, 0.5);
+      animation: orbit linear infinite;
+    }
 
-  <!-- Moving Circular Lines -->
-  <div class="lines-container">
-    <div class="line"></div>
-    <div class="line"></div>
-    <div class="line"></div>
-    <div class="line"></div>
-    <div class="line"></div>
-  </div>
-
-  <!-- Glow Effects -->
-  <div class="glow glow-1"></div>
-  <div class="glow glow-2"></div>
-  <div class="glow glow-3"></div>
-
-  <!-- Main Content -->
-  <div class="container">
-    <h1 class="logo">404 UNKNOWN</h1>
-    <p class="tagline">TECHNOLOGY & INNOVATION</p>
-
-    <a href="https://404-tech.vercel.app" target="_blank" class="official-site">
-      <span>🌐</span> Official Website
-    </a>
-
-    <div class="btn-grid">
-      <button onclick="window.open('/pair')" class="btn">
-        🚀 𝐏𝐀𝐈𝐑 𝐂𝐎𝐃𝐄
-      </button>
-      <button onclick="window.open('https://github.com/404unkown/404-XMD')" class="btn btn-repo">
-        💻 𝐁𝐎𝐓 𝐑𝐄𝐏𝐎
-      </button>
-    </div>
-
-    <div class="footer">
-      <p>© 2024 404 UNKNOWN. All systems operational.</p>
-    </div>
-  </div>
-
-  <script>
-    document.addEventListener('DOMContentLoaded', function() {
-      const video = document.getElementById('bgVideo');
-      const autoPlayBtn = document.getElementById('autoPlayBtn');
-      const loadingOverlay = document.getElementById('loadingOverlay');
-      const interactiveOverlay = document.getElementById('interactiveOverlay');
-      
-      // Strategy 1: Try to auto-play immediately
-      const playVideo = () => {
-        const playPromise = video.play();
-        
-        if (playPromise !== undefined) {
-          playPromise.then(() => {
-            // Success! Video is playing
-            video.classList.add('loaded');
-            setTimeout(() => {
-              loadingOverlay.classList.add('hidden');
-            }, 500);
-          }).catch(() => {
-            // Auto-play failed, use button click method
-            triggerButtonClick();
-          });
-        }
-      };
-      
-      // Strategy 2: Programmatically click a button
-      const triggerButtonClick = () => {
-        // Simulate user interaction by clicking hidden button
-        autoPlayBtn.click();
-        
-        // Try playing again after simulated click
-        setTimeout(() => {
-          video.play().then(() => {
-            video.classList.add('loaded');
-            loadingOverlay.classList.add('hidden');
-          }).catch(() => {
-            // Still failed, try interactive overlay
-            interactiveOverlay.click();
-          });
-        }, 100);
-      };
-      
-      // Strategy 3: When user interacts with page
-      const handleUserInteraction = () => {
-        video.play().then(() => {
-          video.classList.add('loaded');
-          loadingOverlay.classList.add('hidden');
-          // Remove event listeners after success
-          document.removeEventListener('click', handleUserInteraction);
-          document.removeEventListener('touchstart', handleUserInteraction);
-        });
-      };
-      
-      // Set up event listeners for user interaction
-      document.addEventListener('click', handleUserInteraction);
-      document.addEventListener('touchstart', handleUserInteraction);
-      
-      // Set up the interactive overlay
-      interactiveOverlay.addEventListener('click', () => {
-        video.play().then(() => {
-          video.classList.add('loaded');
-          loadingOverlay.classList.add('hidden');
-        });
-      });
-      
-      // Set up the hidden button
-      autoPlayBtn.addEventListener('click', () => {
-        video.play().then(() => {
-          video.classList.add('loaded');
-          loadingOverlay.classList.add('hidden');
-        });
-      });
-      
-      // Start the process when video is loaded
-      video.addEventListener('loadeddata', () => {
-        // Wait a bit then try to play
-        setTimeout(playVideo, 300);
-      });
-      
-      // Fallback: If video takes too long to load
-      setTimeout(() => {
-        if (!video.classList.contains('loaded')) {
-          loadingOverlay.classList.add('hidden');
-          video.classList.add('loaded');
-        }
-      }, 5000);
-      
-      // Enhanced interactive effects (your existing code)
-      const container = document.querySelector('.container');
-      
-      // Mouse move parallax effect
-      document.addEventListener('mousemove', (e) => {
-        const xAxis = (window.innerWidth / 2 - e.pageX) / 30;
-        const yAxis = (window.innerHeight / 2 - e.pageY) / 30;
-        container.style.transform = `perspective(1000px) rotateY(${xAxis}deg) rotateX(${yAxis}deg)`;
-      });
-
-      // Reset transform when mouse leaves
-      container.addEventListener('mouseleave', function() {
-        this.style.transform = 'perspective(1000px) rotateY(0deg) rotateX(0deg)';
-        this.style.transition = 'transform 0.7s ease';
-      });
-
-      // Entrance animation
-      setTimeout(() => {
-        container.style.opacity = '0';
-        container.style.transform = 'translateY(60px) scale(0.9)';
-        container.style.transition = 'none';
-
-        setTimeout(() => {
-          container.style.transition = 'all 1s cubic-bezier(0.25, 0.46, 0.45, 0.94)';
-          container.style.opacity = '1';
-          container.style.transform = 'translateY(0) scale(1)';
-        }, 100);
-      }, 300);
-      
-      // Add floating particles
-      const particlesContainer = document.createElement('div');
-      particlesContainer.className = 'particles';
-      particlesContainer.style.position = 'fixed';
-      particlesContainer.style.top = '0';
-      particlesContainer.style.left = '0';
-      particlesContainer.style.width = '100%';
-      particlesContainer.style.height = '100%';
-      particlesContainer.style.pointerEvents = 'none';
-      particlesContainer.style.zIndex = '0';
-      document.body.appendChild(particlesContainer);
-
-      // Create particles
-      for (let i = 0; i < 30; i++) {
-        const particle = document.createElement('div');
-        particle.style.position = 'absolute';
-        particle.style.width = Math.random() * 4 + 1 + 'px';
-        particle.style.height = particle.style.width;
-        particle.style.background = Math.random() > 0.5 ? 'rgba(0, 255, 255, 0.7)' : 'rgba(255, 0, 255, 0.7)';
-        particle.style.borderRadius = '50%';
-        particle.style.top = Math.random() * 100 + '%';
-        particle.style.left = Math.random() * 100 + '%';
-        particle.style.boxShadow = '0 0 10px currentColor';
-        
-        // Animation
-        const duration = Math.random() * 20 + 10;
-        const delay = Math.random() * 5;
-        particle.style.animation = `floatParticle ${duration}s linear ${delay}s infinite`;
-        
-        particlesContainer.appendChild(particle);
-      }
-
-      // Add CSS for particle animation
-      const style = document.createElement('style');
-      style.textContent = `
-        @keyframes floatParticle {
-          0% { transform: translate(0, 0) rotate(0deg); opacity: 0; }
-          10% { opacity: 1; }
-          90% { opacity: 1; }
-          100% { transform: translate(${Math.random() * 200 - 100}px, ${Math.random() * 200 - 100}px) rotate(360deg); opacity: 0; }
-        }
-      `;
-      document.head.appendChild(style);
-    });
-  </script>
-</body>
-</html>
+    .line:nth-child(1) {
+      width: 300px;
+      height: 300px;
+      top: 20%;
+      left: 10%;
+      animation-duration: 25s;
+      border-color: rgba(255, 0, 255,
