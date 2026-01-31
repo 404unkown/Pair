@@ -20,20 +20,19 @@
       align-items: center;
       justify-content: center;
       min-height: 100vh;
-      background: #000;
       color: #fff;
       overflow: hidden;
       position: relative;
     }
 
-    /* Clean Video Background */
+    /* Video Background - Clear and Visible */
     .video-background {
       position: fixed;
       top: 0;
       left: 0;
       width: 100%;
       height: 100%;
-      z-index: -2;
+      z-index: -1;
       overflow: hidden;
     }
 
@@ -41,6 +40,18 @@
       width: 100%;
       height: 100%;
       object-fit: cover;
+      filter: brightness(1) contrast(1); /* Removed filters for clarity */
+    }
+
+    /* Semi-transparent overlay to make content readable */
+    .video-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.4); /* Lighter overlay */
+      z-index: -1;
     }
 
     /* Sound Toggle Button */
@@ -50,7 +61,7 @@
       right: 20px;
       width: 50px;
       height: 50px;
-      background: rgba(0, 0, 0, 0.7);
+      background: rgba(0, 0, 0, 0.5);
       border-radius: 50%;
       border: 2px solid #00ffff;
       color: #00ffff;
@@ -65,26 +76,25 @@
     }
 
     .sound-toggle:hover {
-      background: rgba(0, 255, 255, 0.2);
+      background: rgba(0, 255, 255, 0.3);
       transform: scale(1.1);
       box-shadow: 0 0 25px rgba(0, 255, 255, 0.8);
     }
 
-    /* Main Content Container */
+    /* Main Content Container - More Transparent */
     .container {
       text-align: center;
       padding: 40px;
-      background: rgba(0, 0, 0, 0.8);
-      backdrop-filter: blur(10px);
+      background: rgba(0, 0, 0, 0.6); /* More transparent */
+      backdrop-filter: blur(5px); /* Less blur */
       border-radius: 20px;
-      border: 1px solid rgba(255, 255, 255, 0.1);
-      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+      border: 1px solid rgba(255, 255, 255, 0.15);
       max-width: 500px;
       width: 90%;
       position: relative;
     }
 
-    /* Logo */
+    /* Logo - Brighter */
     .logo {
       font-family: 'Orbitron', sans-serif;
       font-size: 3.5rem;
@@ -92,39 +102,41 @@
       color: #00ffff;
       margin-bottom: 10px;
       letter-spacing: 3px;
-      text-shadow: 0 0 20px rgba(0, 255, 255, 0.7);
+      text-shadow: 0 0 20px rgba(0, 255, 255, 0.9);
     }
 
-    /* Tagline */
+    /* Tagline - Brighter */
     .tagline {
       font-size: 1.2rem;
-      color: #b0b0ff;
+      color: #ffffff;
       margin-bottom: 30px;
       font-weight: 500;
       letter-spacing: 2px;
+      text-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
     }
 
-    /* Official Site Link */
+    /* Official Site Link - More Visible */
     .official-site {
       display: inline-flex;
       align-items: center;
       justify-content: center;
       gap: 10px;
       padding: 12px 24px;
-      background: rgba(0, 255, 255, 0.1);
+      background: rgba(0, 255, 255, 0.15);
       border-radius: 50px;
       text-decoration: none;
-      color: #00ffff;
+      color: #ffffff;
       font-weight: 600;
       margin-bottom: 30px;
       transition: all 0.3s ease;
-      border: 1px solid rgba(0, 255, 255, 0.3);
+      border: 1px solid rgba(0, 255, 255, 0.5);
+      text-shadow: 0 0 10px rgba(0, 255, 255, 0.5);
     }
 
     .official-site:hover {
-      background: rgba(0, 255, 255, 0.2);
+      background: rgba(0, 255, 255, 0.3);
       transform: translateY(-3px);
-      box-shadow: 0 10px 20px rgba(0, 255, 255, 0.3);
+      box-shadow: 0 10px 20px rgba(0, 255, 255, 0.4);
     }
 
     /* Clean Button Grid */
@@ -139,7 +151,7 @@
     .btn {
       width: 100%;
       padding: 18px 15px;
-      background: rgba(255, 255, 255, 0.05);
+      background: rgba(255, 255, 255, 0.1);
       border-radius: 10px;
       border: 1px solid;
       transition: all 0.3s ease;
@@ -158,39 +170,43 @@
     .pair-btn {
       border-color: #ff00ff;
       color: #ff00ff;
+      text-shadow: 0 0 10px rgba(255, 0, 255, 0.5);
     }
 
     .pair-btn:hover {
-      background: rgba(255, 0, 255, 0.1);
+      background: rgba(255, 0, 255, 0.15);
       transform: translateY(-3px);
-      box-shadow: 0 10px 20px rgba(255, 0, 255, 0.3);
+      box-shadow: 0 10px 20px rgba(255, 0, 255, 0.4);
     }
 
     .repo-btn {
       border-color: #00ffff;
       color: #00ffff;
+      text-shadow: 0 0 10px rgba(0, 255, 255, 0.5);
     }
 
     .repo-btn:hover {
-      background: rgba(0, 255, 255, 0.1);
+      background: rgba(0, 255, 255, 0.15);
       transform: translateY(-3px);
-      box-shadow: 0 10px 20px rgba(0, 255, 255, 0.3);
+      box-shadow: 0 10px 20px rgba(0, 255, 255, 0.4);
     }
 
-    /* Footer */
+    /* Footer - Brighter */
     .footer {
       margin-top: 20px;
-      color: #888;
+      color: #cccccc;
       font-size: 0.9rem;
       text-align: center;
       padding-top: 20px;
-      border-top: 1px solid rgba(255, 255, 255, 0.1);
+      border-top: 1px solid rgba(255, 255, 255, 0.2);
+      text-shadow: 0 0 5px rgba(255, 255, 255, 0.3);
     }
 
     /* Responsive */
     @media (max-width: 768px) {
       .container {
         padding: 30px 20px;
+        background: rgba(0, 0, 0, 0.7); /* Slightly darker on mobile */
       }
 
       .logo {
@@ -211,6 +227,30 @@
         font-size: 15px;
       }
     }
+
+    /* Optional: Add video brightness control */
+    .brightness-control {
+      position: fixed;
+      top: 20px;
+      left: 20px;
+      z-index: 1000;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      background: rgba(0, 0, 0, 0.5);
+      padding: 8px 15px;
+      border-radius: 25px;
+      border: 1px solid rgba(255, 255, 255, 0.2);
+    }
+
+    .brightness-control label {
+      color: #00ffff;
+      font-size: 14px;
+    }
+
+    .brightness-control input {
+      width: 100px;
+    }
   </style>
 </head>
 <body>
@@ -221,10 +261,19 @@
     </video>
   </div>
 
+  <!-- Light overlay for content readability -->
+  <div class="video-overlay"></div>
+
   <!-- Sound Toggle Button -->
   <button class="sound-toggle" id="soundToggle">
     <i class="fas fa-volume-mute"></i>
   </button>
+
+  <!-- Optional Brightness Control -->
+  <div class="brightness-control" id="brightnessControl">
+    <label for="brightnessSlider">Brightness</label>
+    <input type="range" id="brightnessSlider" min="50" max="150" value="100">
+  </div>
 
   <!-- Main Content -->
   <div class="container">
@@ -254,6 +303,8 @@
       const video = document.getElementById('bgVideo');
       const soundToggle = document.getElementById('soundToggle');
       const soundIcon = soundToggle.querySelector('i');
+      const brightnessControl = document.getElementById('brightnessControl');
+      const brightnessSlider = document.getElementById('brightnessSlider');
       let isMuted = true;
       
       // Auto-play the video
@@ -286,7 +337,7 @@
         }
       });
       
-      // Enable sound after user interaction (some browsers require this)
+      // Enable sound after user interaction
       document.addEventListener('click', function() {
         if (isMuted) {
           video.muted = false;
@@ -295,6 +346,21 @@
           soundToggle.style.borderColor = '#ff00ff';
           soundToggle.style.color = '#ff00ff';
         }
+      });
+      
+      // Brightness control
+      brightnessSlider.addEventListener('input', function() {
+        const brightnessValue = this.value;
+        video.style.filter = `brightness(${brightnessValue}%) contrast(1)`;
+      });
+      
+      // Show brightness control on hover
+      brightnessControl.style.opacity = '0.3';
+      brightnessControl.addEventListener('mouseenter', function() {
+        this.style.opacity = '1';
+      });
+      brightnessControl.addEventListener('mouseleave', function() {
+        this.style.opacity = '0.3';
       });
     });
   </script>
